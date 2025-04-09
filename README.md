@@ -38,7 +38,7 @@ Destruturing
         /page.tsx      # http://localhost:3000/register
 ```
 
-# Metadata </br>
+# Metadata
 คือตัวที่ช่วยเพิ่มประสิทธิภาพของ Share Engine</br>
 ```
 import type { Metadata } from "next";
@@ -71,7 +71,7 @@ export default Page
 ```
 # Fetch Data
 ```
-const url = "...path API";
+const url = "https://jsonplaceholder.typicode.com/todos";
 //rafce
 /*การดึงข้อมูลจาก JSON มาแปลงในรูปแบบ DATA*/
 const fetchTodo = async ()=>{
@@ -103,8 +103,157 @@ export default Page;
 
 ```
 
-Loading, Error, Params, Image
+# Loading
+```
+/app
+  /about
+    /page.tsx
+    /Loading.tsx
+```
+# Error
+```
+/app
+  /about
+    /page.tsx
+    /Loading.tsx
+    /Error
+```
+# Params // Parameter
+ ```
+Route
+/app
+  /about
+    /page.tsx
+      /[id]
+        /page.tsx
+    /Loading.tsx
+    /Error.tsx
+/*--------------------------------------------------------------------------------------------*/
+const Page = async ({ params }) =>{
+/* {id} เป็น Destructuring คือการประกาศตัวแปรชื่อเดียวกับ Key เพื่อแกะข้อมูลออกมาจาก params*/
+  const {id} = awit params.id;
+  return
+ <div>
+    {id}
+ </div>
+};
+export default Page
+ ```
+# Image
+ ```
+import Image form "next/image";
+
+const url ="https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU";
+
+const page = ()=>{
+  return(
+      <div>
+          <Image
+          src={url}
+          width={xxx}
+          height={xxx}
+          alt="xxx"
+          priority
+           />
+    <div>
+)
+}
+
+ ```
+# next.config.ts
+เป็นการตั้งค่า file master เรื่อง potocall // ทุกครั้งที่ตั้งค่าต้อง restart server ทุกครั้ง
+- ช่วยให้การจัดการภาพในเว็บไซต์มีประสิทธิภาพมากขึ้นโดยอัตโนมัติ
+- ปรับขนาดภาพให้เหมาะสม ลดการเลื่อนเลย์เอาต์ และเพิ่มความเร็วในการโหลดหน้าเว็บ
+ ```
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "fastly.picsum.photos", /* <<<  ลิงค์จากเว็บไซต์ */
+        pathname: "/**", /* << ถ้าเราไม่ทราบ */
+      },
+    ],
+  },
+};
+
+export default nextConfig;
+ ```
+# Server Actions
+ ```
+--------
+Route
+--------
+/app
+  /Input
+    /Page.tsx
+/components
+  /Form.tsx
+/utils
+  /actions.ts
+
+
+---------------------------
+Page.tsx
+---------------------------
+import Form from "@/components/Form"
+//rafce
+const Page = () =>{
+  return(
+<div>
+<Form />
+</div>
+)
+}
+export default Page
+
+------------------------------
+Form.tsx
+------------------------------
+'use client'
+import { Cratedata } from "@/utils/actions";
+const Form = () =>{
+return <form action={Cratedata}>
+        Form
+        <input clssName = "border"
+               name="title"
+               placeholder = "xxxxx"
+               defaultValue = "XXXXX"
+        / >
+        <input clssName = "border"
+               name="location"
+               placeholder = "xxxxx"
+               defaultValue = "XXXXX"
+        / >
+        <button type="submit">Submit</button>
+        </form>;
+};
+
+---------------------------
+actions.ts
+---------------------------
 Server Actions
+// จัดการข้อมูลจาก form -> formData.get('name')
+// CRUD ข้อมูล -> mutate data (server)
+// รีเฟรชข้อมูล -> revalidate cache
+---------------------------
+'use server'
+import { revalidatePath } from "next/cache"
+export const Cratedata = async(formData) =>{
+   const rawData = Object.fromEntries(formData)
+   console.log(rawData)
+  --------------------------------------------------------------
+  revalidatePath('/') //เป็นการ refresh ข้อมูลหน้าเดิม  *** สำคัญ ***
+  redirect('/') //เมื่อทำงานเสร็จอยากให้เขาไปหน้าไหนต่อ
+  ---------------------------------------------------------------
+  return 'Input Success !!'
+}
+
+ ```
+
 useActionState(), useFormStatus()
 API
 Middleware
