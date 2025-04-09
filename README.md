@@ -14,7 +14,8 @@ Destruturing
 
 พื้นฐานต้องควรรู้ NextJS 15
 Routing
-Metadata
+------------------------
+Metadata คือ ช่วยเพิ่มของ SEO
 Server Components
 Client Components
 Fetch Data
