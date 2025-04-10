@@ -43,13 +43,13 @@ Destruturing
 ```
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Roitai", </br>
-  description: "Camping in Thailand.",
-  keywords: "Camping, Thailand, Roitai",
+  title: "Roitai", </br> //หัวข้อ
+  description: "Thailand.", //รายละเอียด
+  keywords: " Thailand, Roitai",//key ที่เกี่ยวข้องกับ website เรา
 };
 ```
 # Server Components
-คือ componentที่ทำงานของฝั่ง Server เท่านั้น โดยโค้ดจะไม่ถูกส่งไปยัง Browser  
+คือ component ที่ทำงานของฝั่ง Server เท่านั้นโดยโค้ดจะไม่ถูกส่งไปยัง Browser  
 
 # Client Components
 ถ้าจะใช้ต้องเพิ่มคำว่า 'use client'
@@ -59,15 +59,16 @@ export const metadata: Metadata = {
 'use client'
 import { useState } from "react";
 //rafce
-const page = ()=>{
-  cost[count,setCount] = useState(0)
-return(
-  <div>
-    Page
-  </div>
-);
-};
-export default Page
+  const page = ()=>{
+  
+    cost[count,setCount] = useState(0)
+  return(
+    <div>
+      Page
+    </div>
+  );
+  };
+  export default Page
 ```
 # Fetch Data
 ```
@@ -99,24 +100,22 @@ const  Page = async ()=> {
 };
 export default Page;
 
-
-
 ```
 
-# Loading
+# Loading // สามารถแยกเป็นของ Components ได้
+```
+/app
+  /about
+    /page.tsx
+/Loading.tsx
+```
+# Error // สามารถแยกเป็นของ Components ได้
 ```
 /app
   /about
     /page.tsx
     /Loading.tsx
-```
-# Error
-```
-/app
-  /about
-    /page.tsx
-    /Loading.tsx
-    /Error
+/Error.tsx
 ```
 # Params // Parameter
  ```
@@ -200,16 +199,15 @@ Route
 Page.tsx
 ---------------------------
 import Form from "@/components/Form"
-//rafce
-const Page = () =>{
-  return(
-<div>
-<Form />
-</div>
-)
-}
-export default Page
-
+  //rafce
+  const Page = () =>{
+     return(
+        <div>
+        <Form />
+        </div>
+        )
+  }
+  export default Page
 ------------------------------
 Form.tsx
 ------------------------------
@@ -253,6 +251,11 @@ export const Cratedata = async(formData) =>{
 }
 
  ```
+Prisma // เครื่องมือจัดการฐานข้อมูล โดย Prisma ORM จะมีชุดเครื่องมือในการสร้างและจัดการโครงสร้างของฐานข้อมูล ส่งคำสั่งค้นหา (queries) รวมถึงสามารถโยกย้ายฐานข้อมูล (migrations) ได้อย่างมีประสิทธิภาพและใช้งานง่าย
+ ```
+
+ ```
+
 
 useActionState(), useFormStatus()
 API
